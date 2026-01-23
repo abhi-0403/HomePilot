@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#F3ECDC">
+
+    <!-- ================= HEADER ================= -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="110dp"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:background="#5A8DEE"
+        android:elevation="4dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="HomePilot"
+            android:textSize="30sp"
+            android:textStyle="bold"
+            android:textColor="#FFFFFF"
+            android:letterSpacing="0.08"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Smart Home Automation"
+            android:textSize="14sp"
+            android:textColor="#EAF1FF"
+            android:layout_marginTop="6dp"/>
+    </LinearLayout>
+
+    <!-- ================= CONTENT ================= -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:overScrollMode="never">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="20dp">
+
+            <!-- ===== CONTROLS CARD ===== -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="#FFFFFF"
+                android:padding="20dp"
+                android:layout_marginBottom="20dp"
+                android:elevation="3dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Controls"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:textColor="#2C2C2C"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="16dp"/>
+
+                <Button
+                    android:id="@+id/btnLight"
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp"
+                    android:text="💡 Light OFF"
+                    android:textSize="16sp"
+                    android:textColor="#FFFFFF"
+                    android:backgroundTint="#FFB74D"
+                    android:paddingLeft="24dp"
+                    android:paddingRight="24dp" />
+
+
+                <Button
+                    android:id="@+id/btnFan"
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp"
+                    android:text="🌀 Fan OFF"
+                    android:textSize="16sp"
+                    android:textColor="#FFFFFF"
+                    android:backgroundTint="#4DB6AC"
+                    android:layout_marginTop="14dp"
+                    android:paddingLeft="24dp"
+                    android:paddingRight="24dp"/>
+
+
+                <Button
+                    android:id="@+id/btnBuzzer"
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp"
+                    android:text="🚨 Panic Alarm OFF"
+                    android:textSize="16sp"
+                    android:textColor="#FFFFFF"
+                    android:backgroundTint="#EF5350"
+                    android:layout_marginTop="14dp"
+                    android:paddingLeft="24dp"
+                    android:paddingRight="24dp"/>
+
+            </LinearLayout>
+
+            <!-- ===== ROOM STATUS TITLE ===== -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Room Status"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="#2C2C2C"
+                android:layout_gravity="center"
+                android:layout_marginBottom="14dp"/>
+
+            <!-- ===== STATUS CARDS ROW ===== -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <!-- Temperature Card -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:background="#FFFFFF"
+                    android:padding="18dp"
+                    android:layout_marginBottom="14dp"
+                    android:elevation="3dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="🌡 Temperature"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        android:textColor="#333333"
+                        android:layout_gravity="center"/>
+
+                    <TextView
+                        android:id="@+id/txtTemp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="-- °C"
+                        android:textSize="22sp"
+                        android:textStyle="bold"
+                        android:textColor="#5A8DEE"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="8dp"/>
+                </LinearLayout>
+
+                <!-- Humidity Card -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:background="#FFFFFF"
+                    android:padding="18dp"
+                    android:layout_marginBottom="14dp"
+                    android:elevation="3dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="💧 Humidity"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        android:textColor="#333333"
+                        android:layout_gravity="center"/>
+
+                    <TextView
+                        android:id="@+id/txtHumidity"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="-- %"
+                        android:textSize="22sp"
+                        android:textStyle="bold"
+                        android:textColor="#26A69A"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="8dp"/>
+                </LinearLayout>
+
+                <!-- Motion Card -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:background="#FFFFFF"
+                    android:padding="18dp"
+                    android:elevation="3dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="🚶 Motion"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        android:textColor="#333333"
+                        android:layout_gravity="center"/>
+
+                    <TextView
+                        android:id="@+id/txtMotion"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="No Motion"
+                        android:textSize="20sp"
+                        android:textStyle="bold"
+                        android:textColor="#EF5350"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="8dp"/>
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+    <!-- ================= FOOTER ================= -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:background="#5A8DEE" />
+
+</LinearLayout>
