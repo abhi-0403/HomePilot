@@ -20,8 +20,7 @@
             android:text="HomePilot"
             android:textSize="30sp"
             android:textStyle="bold"
-            android:textColor="#FFFFFF"
-            android:letterSpacing="0.08"/>
+            android:textColor="#FFFFFF"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -52,7 +51,6 @@
                 android:orientation="vertical"
                 android:background="#FFFFFF"
                 android:padding="20dp"
-                android:layout_marginBottom="20dp"
                 android:elevation="3dp">
 
                 <TextView
@@ -61,7 +59,6 @@
                     android:text="Controls"
                     android:textSize="18sp"
                     android:textStyle="bold"
-                    android:textColor="#2C2C2C"
                     android:layout_gravity="center"
                     android:layout_marginBottom="16dp"/>
 
@@ -70,7 +67,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="56dp"
                     android:text="💡 Light OFF"
-                    android:textSize="16sp"
                     android:textColor="#FFFFFF"
                     android:backgroundTint="#FFB74D"/>
 
@@ -79,29 +75,27 @@
                     android:layout_width="match_parent"
                     android:layout_height="56dp"
                     android:text="🌀 Fan OFF"
-                    android:textSize="16sp"
                     android:textColor="#FFFFFF"
                     android:backgroundTint="#4DB6AC"
-                    android:layout_marginTop="14dp"/>
+                    android:layout_marginTop="12dp"/>
 
                 <Button
                     android:id="@+id/btnBuzzer"
                     android:layout_width="match_parent"
                     android:layout_height="56dp"
                     android:text="🚨 Panic Alarm OFF"
-                    android:textSize="16sp"
                     android:textColor="#FFFFFF"
                     android:backgroundTint="#EF5350"
-                    android:layout_marginTop="14dp"/>
+                    android:layout_marginTop="12dp"/>
 
-                <!-- 🔒 Secure Home -->
-                <!-- 🔒 Secure Home Toggle (Styled) -->
+                <!-- Secure Home Toggle -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:gravity="center_vertical"
                     android:layout_marginTop="20dp"
+                    android:padding="12dp"
                     android:background="@drawable/bg_security_toggle">
 
                     <TextView
@@ -118,116 +112,193 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"/>
                 </LinearLayout>
-
             </LinearLayout>
 
-            <!-- ===== ROOM STATUS TITLE ===== -->
+            <!-- ===== ROOM STATUS ===== -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Room Status"
                 android:textSize="18sp"
                 android:textStyle="bold"
-                android:textColor="#2C2C2C"
                 android:layout_gravity="center"
+                android:layout_marginTop="24dp"
                 android:layout_marginBottom="14dp"/>
 
-            <!-- ===== STATUS CARDS ===== -->
+            <!-- Temperature -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:background="#FFFFFF"
+                android:padding="18dp"
+                android:elevation="3dp"
+                android:layout_marginBottom="12dp"
+                android:gravity="center_horizontal">
 
-                <!-- Temperature -->
-                <LinearLayout
-                    android:layout_width="match_parent"
+                <TextView
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:background="#FFFFFF"
-                    android:padding="18dp"
-                    android:layout_marginBottom="14dp"
-                    android:elevation="3dp">
+                    android:text="🌡 Temperature"
+                    android:textStyle="bold"/>
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="🌡 Temperature"
-                        android:textSize="16sp"
-                        android:textStyle="bold"
-                        android:layout_gravity="center"/>
-
-                    <TextView
-                        android:id="@+id/txtTemp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="-- °C"
-                        android:textSize="22sp"
-                        android:textStyle="bold"
-                        android:textColor="#5A8DEE"
-                        android:layout_gravity="center"
-                        android:layout_marginTop="8dp"/>
-                </LinearLayout>
-
-                <!-- Humidity -->
-                <LinearLayout
-                    android:layout_width="match_parent"
+                <TextView
+                    android:id="@+id/txtTemp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:background="#FFFFFF"
-                    android:padding="18dp"
-                    android:layout_marginBottom="14dp"
-                    android:elevation="3dp">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="💧 Humidity"
-                        android:textSize="16sp"
-                        android:textStyle="bold"
-                        android:layout_gravity="center"/>
-
-                    <TextView
-                        android:id="@+id/txtHumidity"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="-- %"
-                        android:textSize="22sp"
-                        android:textStyle="bold"
-                        android:textColor="#26A69A"
-                        android:layout_gravity="center"
-                        android:layout_marginTop="8dp"/>
-                </LinearLayout>
-
-                <!-- Motion -->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:background="#FFFFFF"
-                    android:padding="18dp"
-                    android:elevation="3dp">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="🚶 Motion"
-                        android:textSize="16sp"
-                        android:textStyle="bold"
-                        android:layout_gravity="center"/>
-
-                    <TextView
-                        android:id="@+id/txtMotion"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="No Motion"
-                        android:textSize="20sp"
-                        android:textStyle="bold"
-                        android:textColor="#EF5350"
-                        android:layout_gravity="center"
-                        android:layout_marginTop="8dp"/>
-                </LinearLayout>
-
+                    android:text="-- °C"
+                    android:textSize="22sp"
+                    android:textStyle="bold"
+                    android:textColor="#5A8DEE"/>
             </LinearLayout>
+
+            <!-- Humidity -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="#FFFFFF"
+                android:padding="18dp"
+                android:elevation="3dp"
+                android:layout_marginBottom="12dp"
+                android:gravity="center_horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="💧 Humidity"
+                    android:textStyle="bold"/>
+
+                <TextView
+                    android:id="@+id/txtHumidity"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="-- %"
+                    android:textSize="22sp"
+                    android:textStyle="bold"
+                    android:textColor="#26A69A"/>
+            </LinearLayout>
+
+            <!-- Motion -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="#FFFFFF"
+                android:padding="18dp"
+                android:elevation="3dp"
+                android:layout_marginBottom="12dp"
+                android:gravity="center_horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="🚶 Motion"
+                    android:textStyle="bold"/>
+
+                <TextView
+                    android:id="@+id/txtMotion"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="No Motion"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:textColor="#EF5350"/>
+            </LinearLayout>
+
+            <!-- Fire -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="#FFFFFF"
+                android:padding="18dp"
+                android:elevation="3dp"
+                android:layout_marginBottom="12dp"
+                android:gravity="center_horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="🔥 Fire Status"
+                    android:textStyle="bold"/>
+
+                <TextView
+                    android:id="@+id/txtFire"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Safe"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:textColor="#388E3C"/>
+            </LinearLayout>
+
+            <!-- Gas -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="#FFFFFF"
+                android:padding="18dp"
+                android:elevation="3dp"
+                android:layout_marginBottom="14dp"
+                android:gravity="center_horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="⛽ Gas Leakage"
+                    android:textStyle="bold"/>
+
+                <TextView
+                    android:id="@+id/txtGas"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Normal"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:textColor="#2E7D32"
+                    android:layout_marginTop="8dp"/>
+            </LinearLayout>
+
+            <!-- Last Detected -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="#FFFFFF"
+                android:padding="18dp"
+                android:elevation="3dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="🕒 Last Detected"
+                    android:textStyle="bold"
+                    android:layout_gravity="center"/>
+
+                <TextView
+                    android:id="@+id/txtLastMotion"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Motion: --"
+                    android:layout_marginTop="8dp"/>
+
+                <TextView
+                    android:id="@+id/txtLastGas"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Gas: --"
+                    android:layout_marginTop="4dp"/>
+
+                <TextView
+                    android:id="@+id/txtLastFire"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Fire: --"
+                    android:layout_marginTop="4dp"/>
+            </LinearLayout>
+
         </LinearLayout>
     </ScrollView>
 

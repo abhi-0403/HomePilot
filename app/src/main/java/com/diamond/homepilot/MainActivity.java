@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SwitchCompat;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.TextView;
@@ -20,7 +21,10 @@ public class MainActivity extends AppCompatActivity {
     // UI Components
     Button btnLight, btnFan, btnBuzzer;
     SwitchCompat switchSecurity;
+
     TextView txtTemp, txtHumidity, txtMotion;
+    TextView txtFire, txtGas;
+    TextView txtLastMotion, txtLastGas, txtLastFire;
 
     // Firebase Reference
     DatabaseReference homeRef;
@@ -30,6 +34,10 @@ public class MainActivity extends AppCompatActivity {
     int fanState = 0;
     int buzzerState = 0;
     int securityState = 0;
+
+    // Gas values
+    int gasStatus = 0;
+    int gasLevel = 0;
 
     boolean isUserToggle = true;
 
@@ -47,44 +55,45 @@ public class MainActivity extends AppCompatActivity {
         txtTemp = findViewById(R.id.txtTemp);
         txtHumidity = findViewById(R.id.txtHumidity);
         txtMotion = findViewById(R.id.txtMotion);
+        txtFire = findViewById(R.id.txtFire);
+        txtGas = findViewById(R.id.txtGas);
+
+        txtLastMotion = findViewById(R.id.txtLastMotion);
+        txtLastGas = findViewById(R.id.txtLastGas);
+        txtLastFire = findViewById(R.id.txtLastFire);
 
         // Firebase Reference
         homeRef = FirebaseDatabase.getInstance().getReference("HomePilot");
 
-        // Button Listeners
+        // Button listeners
         btnLight.setOnClickListener(v -> toggleLight());
         btnFan.setOnClickListener(v -> toggleFan());
         btnBuzzer.setOnClickListener(v -> toggleBuzzer());
 
-        // Secure Home Switch Listener
+        // Secure Home switch
         switchSecurity.setOnCheckedChangeListener((buttonView, isChecked) -> {
             if (!isUserToggle) return;
             homeRef.child("security").setValue(isChecked ? 1 : 0);
         });
 
-        // Listen for sensor + state updates
         readSensorData();
     }
 
-    // Toggle Light
     private void toggleLight() {
         lightState = (lightState == 0) ? 1 : 0;
         homeRef.child("light").setValue(lightState);
     }
 
-    // Toggle Fan
     private void toggleFan() {
         fanState = (fanState == 0) ? 1 : 0;
         homeRef.child("fan").setValue(fanState);
     }
 
-    // Toggle Buzzer
     private void toggleBuzzer() {
         buzzerState = (buzzerState == 0) ? 1 : 0;
         homeRef.child("buzzer").setValue(buzzerState);
     }
 
-    // Read Sensor & State Data from Firebase
     private void readSensorData() {
 
         homeRef.addValueEventListener(new ValueEventListener() {
@@ -93,44 +102,76 @@ public class MainActivity extends AppCompatActivity {
 
                 // Temperature
                 if (snapshot.child("temperature").exists()) {
-                    String temp = snapshot.child("temperature").getValue().toString();
-                    txtTemp.setText(temp + " °C");
+                    txtTemp.setText(snapshot.child("temperature").getValue() + " °C");
                 }
 
                 // Humidity
                 if (snapshot.child("humidity").exists()) {
-                    String humidity = snapshot.child("humidity").getValue().toString();
-                    txtHumidity.setText(humidity + " %");
+                    txtHumidity.setText(snapshot.child("humidity").getValue() + " %");
                 }
 
                 // Motion
                 if (snapshot.child("motion").exists()) {
-                    String motion = snapshot.child("motion").getValue().toString();
-                    txtMotion.setText(motion.equals("1") ? "Motion Detected" : "No Motion");
+                    int motion = snapshot.child("motion").getValue(Integer.class);
+                    txtMotion.setText(motion == 1 ? "Motion Detected" : "No Motion");
                 }
 
-                // Light state sync
+                // Fire
+                if (snapshot.child("fire").exists()) {
+                    int fire = snapshot.child("fire").getValue(Integer.class);
+                    txtFire.setText(fire == 1 ? "🔥 FIRE DETECTED" : "Safe");
+                    txtFire.setTextColor(fire == 1 ? Color.RED : Color.parseColor("#388E3C"));
+                }
+
+                // -------- GAS STATUS (UPDATED) --------
+                if (snapshot.child("gasStatus").exists()) {
+                    gasStatus = snapshot.child("gasStatus").getValue(Integer.class);
+                }
+
+                if (snapshot.child("gas_Level").exists()) {
+                    gasLevel = snapshot.child("gas_Level").getValue(Integer.class);
+                }
+
+                if (gasStatus == 1 || gasLevel > 700) {
+                    txtGas.setText("⛽ GAS LEAK!\nLevel: " + gasLevel);
+                    txtGas.setTextColor(Color.RED);
+                } else {
+                    txtGas.setText("Normal\nLevel: " + gasLevel);
+                    txtGas.setTextColor(Color.parseColor("#2E7D32"));
+                }
+                // -------------------------------------
+
+                // Last detected logs
+                if (snapshot.child("last_motion").exists()) {
+                    txtLastMotion.setText("Motion: " + snapshot.child("last_motion").getValue());
+                }
+
+                if (snapshot.child("last_gas").exists()) {
+                    txtLastGas.setText("Gas: " + snapshot.child("last_gas").getValue());
+                }
+
+                if (snapshot.child("last_fire").exists()) {
+                    txtLastFire.setText("Fire: " + snapshot.child("last_fire").getValue());
+                }
+
+                // Sync control states
                 if (snapshot.child("light").exists()) {
-                    lightState = Integer.parseInt(snapshot.child("light").getValue().toString());
+                    lightState = snapshot.child("light").getValue(Integer.class);
                     btnLight.setText(lightState == 1 ? "💡 Light ON" : "💡 Light OFF");
                 }
 
-                // Fan state sync
                 if (snapshot.child("fan").exists()) {
-                    fanState = Integer.parseInt(snapshot.child("fan").getValue().toString());
+                    fanState = snapshot.child("fan").getValue(Integer.class);
                     btnFan.setText(fanState == 1 ? "🌀 Fan ON" : "🌀 Fan OFF");
                 }
 
-                // Buzzer state sync
                 if (snapshot.child("buzzer").exists()) {
-                    buzzerState = Integer.parseInt(snapshot.child("buzzer").getValue().toString());
+                    buzzerState = snapshot.child("buzzer").getValue(Integer.class);
                     btnBuzzer.setText(buzzerState == 1 ? "🚨 Panic Alarm ON" : "🚨 Panic Alarm OFF");
                 }
 
-                // Security state sync
                 if (snapshot.child("security").exists()) {
-                    securityState = Integer.parseInt(snapshot.child("security").getValue().toString());
-
+                    securityState = snapshot.child("security").getValue(Integer.class);
                     isUserToggle = false;
                     switchSecurity.setChecked(securityState == 1);
                     isUserToggle = true;
