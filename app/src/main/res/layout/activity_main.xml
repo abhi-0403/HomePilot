@@ -72,10 +72,7 @@
                     android:text="💡 Light OFF"
                     android:textSize="16sp"
                     android:textColor="#FFFFFF"
-                    android:backgroundTint="#FFB74D"
-                    android:paddingLeft="24dp"
-                    android:paddingRight="24dp" />
-
+                    android:backgroundTint="#FFB74D"/>
 
                 <Button
                     android:id="@+id/btnFan"
@@ -85,10 +82,7 @@
                     android:textSize="16sp"
                     android:textColor="#FFFFFF"
                     android:backgroundTint="#4DB6AC"
-                    android:layout_marginTop="14dp"
-                    android:paddingLeft="24dp"
-                    android:paddingRight="24dp"/>
-
+                    android:layout_marginTop="14dp"/>
 
                 <Button
                     android:id="@+id/btnBuzzer"
@@ -98,9 +92,32 @@
                     android:textSize="16sp"
                     android:textColor="#FFFFFF"
                     android:backgroundTint="#EF5350"
-                    android:layout_marginTop="14dp"
-                    android:paddingLeft="24dp"
-                    android:paddingRight="24dp"/>
+                    android:layout_marginTop="14dp"/>
+
+                <!-- 🔒 Secure Home -->
+                <!-- 🔒 Secure Home Toggle (Styled) -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:layout_marginTop="20dp"
+                    android:background="@drawable/bg_security_toggle">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="🔒 Secure Home"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        android:textColor="#2C2C2C"/>
+
+                    <androidx.appcompat.widget.SwitchCompat
+                        android:id="@+id/switchSecurity"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+                </LinearLayout>
 
             </LinearLayout>
 
@@ -115,13 +132,13 @@
                 android:layout_gravity="center"
                 android:layout_marginBottom="14dp"/>
 
-            <!-- ===== STATUS CARDS ROW ===== -->
+            <!-- ===== STATUS CARDS ===== -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <!-- Temperature Card -->
+                <!-- Temperature -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -137,7 +154,6 @@
                         android:text="🌡 Temperature"
                         android:textSize="16sp"
                         android:textStyle="bold"
-                        android:textColor="#333333"
                         android:layout_gravity="center"/>
 
                     <TextView
@@ -152,7 +168,7 @@
                         android:layout_marginTop="8dp"/>
                 </LinearLayout>
 
-                <!-- Humidity Card -->
+                <!-- Humidity -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -168,7 +184,6 @@
                         android:text="💧 Humidity"
                         android:textSize="16sp"
                         android:textStyle="bold"
-                        android:textColor="#333333"
                         android:layout_gravity="center"/>
 
                     <TextView
@@ -183,7 +198,7 @@
                         android:layout_marginTop="8dp"/>
                 </LinearLayout>
 
-                <!-- Motion Card -->
+                <!-- Motion -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -198,7 +213,6 @@
                         android:text="🚶 Motion"
                         android:textSize="16sp"
                         android:textStyle="bold"
-                        android:textColor="#333333"
                         android:layout_gravity="center"/>
 
                     <TextView
@@ -214,7 +228,6 @@
                 </LinearLayout>
 
             </LinearLayout>
-
         </LinearLayout>
     </ScrollView>
 
@@ -222,6 +235,6 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="44dp"
-        android:background="#5A8DEE" />
+        android:background="#5A8DEE"/>
 
 </LinearLayout>

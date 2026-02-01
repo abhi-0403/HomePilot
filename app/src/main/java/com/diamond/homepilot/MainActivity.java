@@ -1,11 +1,10 @@
 package com.diamond.homepilot;
 
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SwitchCompat;
 
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -20,6 +19,7 @@ public class MainActivity extends AppCompatActivity {
 
     // UI Components
     Button btnLight, btnFan, btnBuzzer;
+    SwitchCompat switchSecurity;
     TextView txtTemp, txtHumidity, txtMotion;
 
     // Firebase Reference
@@ -29,6 +29,9 @@ public class MainActivity extends AppCompatActivity {
     int lightState = 0;
     int fanState = 0;
     int buzzerState = 0;
+    int securityState = 0;
+
+    boolean isUserToggle = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +42,7 @@ public class MainActivity extends AppCompatActivity {
         btnLight = findViewById(R.id.btnLight);
         btnFan = findViewById(R.id.btnFan);
         btnBuzzer = findViewById(R.id.btnBuzzer);
+        switchSecurity = findViewById(R.id.switchSecurity);
 
         txtTemp = findViewById(R.id.txtTemp);
         txtHumidity = findViewById(R.id.txtHumidity);
@@ -52,7 +56,13 @@ public class MainActivity extends AppCompatActivity {
         btnFan.setOnClickListener(v -> toggleFan());
         btnBuzzer.setOnClickListener(v -> toggleBuzzer());
 
-        // Listen for sensor updates
+        // Secure Home Switch Listener
+        switchSecurity.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (!isUserToggle) return;
+            homeRef.child("security").setValue(isChecked ? 1 : 0);
+        });
+
+        // Listen for sensor + state updates
         readSensorData();
     }
 
@@ -60,39 +70,21 @@ public class MainActivity extends AppCompatActivity {
     private void toggleLight() {
         lightState = (lightState == 0) ? 1 : 0;
         homeRef.child("light").setValue(lightState);
-
-        if (lightState == 1) {
-            btnLight.setText("💡 Light ON");
-        } else {
-            btnLight.setText("💡 Light OFF");
-        }
     }
 
     // Toggle Fan
     private void toggleFan() {
         fanState = (fanState == 0) ? 1 : 0;
         homeRef.child("fan").setValue(fanState);
-
-        if (fanState == 1) {
-            btnFan.setText("🌀 Fan ON");
-        } else {
-            btnFan.setText("🌀 Fan OFF");
-        }
     }
 
     // Toggle Buzzer
     private void toggleBuzzer() {
         buzzerState = (buzzerState == 0) ? 1 : 0;
         homeRef.child("buzzer").setValue(buzzerState);
-
-        if (buzzerState == 1) {
-            btnBuzzer.setText("🚨 Panic Alarm ON");
-        } else {
-            btnBuzzer.setText("🚨 Panic Alarm OFF");
-        }
     }
 
-    // Read Sensor Data from Firebase
+    // Read Sensor & State Data from Firebase
     private void readSensorData() {
 
         homeRef.addValueEventListener(new ValueEventListener() {
@@ -114,11 +106,7 @@ public class MainActivity extends AppCompatActivity {
                 // Motion
                 if (snapshot.child("motion").exists()) {
                     String motion = snapshot.child("motion").getValue().toString();
-                    if (motion.equals("1")) {
-                        txtMotion.setText("Motion Detected");
-                    } else {
-                        txtMotion.setText("No Motion");
-                    }
+                    txtMotion.setText(motion.equals("1") ? "Motion Detected" : "No Motion");
                 }
 
                 // Light state sync
@@ -137,6 +125,15 @@ public class MainActivity extends AppCompatActivity {
                 if (snapshot.child("buzzer").exists()) {
                     buzzerState = Integer.parseInt(snapshot.child("buzzer").getValue().toString());
                     btnBuzzer.setText(buzzerState == 1 ? "🚨 Panic Alarm ON" : "🚨 Panic Alarm OFF");
+                }
+
+                // Security state sync
+                if (snapshot.child("security").exists()) {
+                    securityState = Integer.parseInt(snapshot.child("security").getValue().toString());
+
+                    isUserToggle = false;
+                    switchSecurity.setChecked(securityState == 1);
+                    isUserToggle = true;
                 }
             }
 
